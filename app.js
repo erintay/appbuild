@@ -1,46 +1,7 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express')
+const app = express()
+const port = 3000
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
-
-/*
 
 const myClay = [
   {
@@ -65,19 +26,34 @@ const myClay = [
     glaze: 'black',
   },
 ]
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
 
+// READ
+app.get('/clay/:id', (req, res) => {
+  const clayId = req.params.id
+
+  //console.log(clayId)
+const clay = myClay.find((clay)=>
+clay.id === clayId)
+
+if (!clay) {
+  return res.send ('no clay found')
+}
+  res.send(clay)
+})
+//CREATE
 app.post('/', (req, res) => {
-    res.send('Got a POST request')
-  })
-
+  res.send('Got a POST request')
+})
+//UPDATE
 app.put('/user', (req, res) => {
-    res.send('Got a PUT request at /user')
-  })
-
+  res.send('Got a PUT request at /user')
+})
+//DELETE
 app.delete('/user', (req, res) => {
-    res.send('Got a DELETE request at /user')
-  }) 
-  */
+  res.send('Got a DELETE request at /user')
+}) 
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
