@@ -55,14 +55,14 @@ app.put('/user', (req, res) => {
 app.delete('/clay/:id', (req, res) => {
   const clayId = Number.parseInt (req.params.id)
 
-  console.log('Delete clay: ', carId)
+  console.log('Delete clay: ', clayId)
   
-  const carIndex = myCars.findIndex (clay => clay.id === clayId)
+  const clayIndex = myClay.findIndex (clay => clay.id === clayId)
 
-  if (carIndex < 0) {
+  if (clayIndex < 0) {
     return res.send ('Piece not found')
   }
-  myClay.splice (carIndex,1)
+  myClay.splice (clayIndex,1)
   res.send('Got a DELETE request at /user')
 }) 
 
