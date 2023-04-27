@@ -40,16 +40,29 @@ if (!clay) {
 }
   res.send(clay)
 })
+
 //CREATE
 app.post('/', (req, res) => {
   res.send('Got a POST request')
 })
+
 //UPDATE
 app.put('/user', (req, res) => {
   res.send('Got a PUT request at /user')
 })
+
 //DELETE
-app.delete('/user', (req, res) => {
+app.delete('/clay/:id', (req, res) => {
+  const clayId = Number.parseInt (req.params.id)
+
+  console.log('Delete clay: ', carId)
+  
+  const carIndex = myCars.findIndex (clay => clay.id === clayId)
+
+  if (carIndex < 0) {
+    return res.send ('Piece not found')
+  }
+  myClay.splice (carIndex,1)
   res.send('Got a DELETE request at /user')
 }) 
 
